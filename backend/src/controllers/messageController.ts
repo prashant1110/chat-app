@@ -30,5 +30,22 @@ export const sendMessage = async(req: Request, res: Response) => {
             conversationId:conversation.id
         }
     })
+
+    if(newMessage){
+        conversation=await prisma.conversations.update({
+            where:{
+                id:conversation.id
+            },
+            data:{
+                messages:{
+                    connect:{
+                        id:message.id
+                    }
+                }
+            }
+        })
+    }
+
+    res.status(201).json(newMessage)
   } catch (error) {}
 };
