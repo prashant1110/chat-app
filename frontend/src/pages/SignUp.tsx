@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import GenderCheckbox from "../components/GenderCheckbox";
 
 const SignUp = () => {
 	return (
@@ -9,55 +9,44 @@ const SignUp = () => {
 					Sign Up <span className='text-blue-500'> ChatApp</span>
 				</h1>
 
-				<form >
+				<form>
 					<div>
 						<label className='label p-2'>
-							<span className='text-base label-text'>Full Name</span>
+							<span className='text-base label-text text-white'>Full Name</span>
 						</label>
-						<input
-							type='text'
-							placeholder='John Doe'
-							className='w-full input input-bordered  h-10'
-						
-						/>
+						<input type='text' placeholder='John Doe' className='w-full input input-bordered  h-10' />
 					</div>
 
 					<div>
 						<label className='label p-2 '>
-							<span className='text-base label-text'>Username</span>
+							<span className='text-base label-text text-white'>Username</span>
 						</label>
-						<input
-							type='text'
-							placeholder='johndoe'
-							className='w-full input input-bordered h-10'
-							
-						/>
+						<input type='text' placeholder='johndoe' className='w-full input input-bordered h-10' />
 					</div>
 
 					<div>
 						<label className='label'>
-							<span className='text-base label-text'>Password</span>
+							<span className='text-base label-text text-white'>Password</span>
 						</label>
 						<input
 							type='password'
 							placeholder='Enter Password'
 							className='w-full input input-bordered h-10'
-							
 						/>
 					</div>
 
 					<div>
 						<label className='label'>
-							<span className='text-base label-text'>Confirm Password</span>
+							<span className='text-base label-text text-white'>Confirm Password</span>
 						</label>
 						<input
 							type='password'
 							placeholder='Confirm Password'
 							className='w-full input input-bordered h-10'
-							
 						/>
 					</div>
 
+					<GenderCheckbox />
 
 					<Link
 						to={"/login"}
@@ -67,9 +56,7 @@ const SignUp = () => {
 					</Link>
 
 					<div>
-						<button className='btn btn-block btn-sm mt-2 border border-slate-700'>
-						"Sign Up"
-						</button>
+						<button className='btn btn-block btn-sm mt-2 border border-slate-700'>Sign Up</button>
 					</div>
 				</form>
 			</div>
