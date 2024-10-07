@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Navigate } from "react-router-dom";
 
 type AuthType = {
   id: string;
@@ -37,11 +38,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchAuthUser = async () => {
       try {
-        const res = await fetch("/api/auth/me");
+        const res = await fetch("/api/auth/getme");
         const user = await res.json();
 
         if (!user) {
           throw new Error(user.error);
+        }
+
+        if (user.error) {
+          <Navigate to={"/login"} />;
+          return;
         }
 
         setAuthUser(user);
