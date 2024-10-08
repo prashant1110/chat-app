@@ -81,7 +81,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "User doesnot exsits" });
     }
 
-    const isPasswordCorrect = bcryptjs.compare(user.password, password);
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password);
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ error: "Invalid credentials" });

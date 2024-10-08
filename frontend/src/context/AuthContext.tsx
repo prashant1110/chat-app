@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 
 type AuthType = {
@@ -51,8 +52,9 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         }
 
         setAuthUser(user);
-      } catch (error) {
+      } catch (error:any) {
         console.log(error);
+        toast.error(error.message)
       } finally {
         setIsLoading(false);
       }
