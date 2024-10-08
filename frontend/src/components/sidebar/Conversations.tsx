@@ -1,13 +1,17 @@
-import { DUMMY_CONVERSATIONS } from "../../dummy_data/dummy";
+import useConversations from "../../hooks/useConversations";
 import Conversation from "./Conversation";
 
 const Conversations = () => {
-	return (
-		<div className='py-2 flex flex-col overflow-auto'>
-			{DUMMY_CONVERSATIONS.map((conversation) => (
-				<Conversation key={conversation.id} conversation={conversation} />
-			))}
-		</div>
-	);
+  const { conversations, loading } = useConversations();
+
+  return (
+    <div className="py-2 flex flex-col overflow-auto">
+      {conversations?.map((conversation) => (
+        <Conversation key={conversation.id} conversation={conversation} />
+      ))}
+
+	  {loading?<span className="loading loading-spinner mx-auto"/>:null}
+    </div>
+  );
 };
 export default Conversations;
