@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import { useAuth } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { authUser, isLoading } = useAuth();
@@ -25,6 +26,7 @@ function App() {
           element={!authUser ? <Login /> : <Navigate to={"/"} />}
         />
       </Routes>
+      <Toaster/>
     </div>
   );
 }

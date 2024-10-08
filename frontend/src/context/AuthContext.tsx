@@ -7,11 +7,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import { Navigate } from "react-router-dom";
 
 type AuthType = {
   id: string;
-  fullName: string;
+  fullname: string;
   email: string;
   profilePic: string;
   gender: string;
@@ -34,14 +35,13 @@ export const useAuth = () => {
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [authUser, setAuthUser] = useState<AuthType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchAuthUser = async () => {
       try {
         const res = await fetch("/api/auth/getme");
         const user = await res.json();
 
-        if (!user) {
+        if (!res.ok) {
           throw new Error(user.error);
         }
 
@@ -49,10 +49,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           <Navigate to={"/login"} />;
           return;
         }
-
         setAuthUser(user);
-      } catch (error) {
+      } catch (error:any) {
         console.log(error);
+        toast.error(error.message)
       } finally {
         setIsLoading(false);
       }
