@@ -3,6 +3,7 @@ import { useState } from "react";
 import useConversations from "../../hooks/useConversations";
 import toast from "react-hot-toast";
 import useConversation from "../../zustand/useConversation";
+import Theme from "./Theme";
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");
@@ -28,7 +29,8 @@ const SearchInput = () => {
   };
 
   return (
-    <form className="flex items-center gap-2" onSubmit={handleSearch}>
+    <div className="flex justify-between gap-4">
+    <form className="flex items-center gap-2 w-full" onSubmit={handleSearch}>
       <input
         type="text"
         placeholder="Search…"
@@ -43,6 +45,8 @@ const SearchInput = () => {
         <Search className="w-4 h-4 md:w-6 md:h-6 outline-none" />
       </button>
     </form>
+    <Theme/>
+    </div>
   );
 };
 export default SearchInput;

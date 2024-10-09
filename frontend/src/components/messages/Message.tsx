@@ -5,6 +5,7 @@ const Message = ({ message }: { message: MessageType }) => {
   const { authUser } = useAuth();
   const fromMe = message?.sednerId === authUser?.id;
   const { selectedConversation } = useConversation();
+  console.log(authUser)
 
   const chatClass = fromMe ? "chat-end" : "chat-start";
   const img = fromMe ? authUser?.profilePic : selectedConversation?.profilePic;

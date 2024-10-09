@@ -111,9 +111,11 @@ export const logout = (req: Request, res: Response) => {
   }
 };
 
-export const getme =async (req: Request, res: Response) => {
+export const getme = async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: req.user.id } }) as any;
+    const user = (await prisma.user.findUnique({
+      where: { id: req.user.id },
+    })) as any;
     if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
@@ -126,6 +128,53 @@ export const getme =async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log("Error in logout controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const update = async (req: Request, res: Response) => {
+  try {
+    const { id, fullname, password, newPassword } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: "User doesnot exsits" });
+    }
+
+    const confirmPassword = await bcryptjs.compare(password, user?.password);
+
+    if (!confirmPassword) {
+      return res.status(400).json({ error: "Please write correct password" });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashPassword = await bcryptjs.hash(newPassword, salt);
+
+    if (confirmPassword) {
+      await prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          fullname,
+          password: !newPassword ? user?.password : hashPassword,
+        },
+      });
+    }
+
+    res.status(200).json({
+      id: user.id,
+      fullname: fullname,
+      username: user.username,
+      profilePic: user.profilePic,
+    });
+  } catch (error: any) {
+    console.log("Error in update controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

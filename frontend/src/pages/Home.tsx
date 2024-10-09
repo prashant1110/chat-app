@@ -1,11 +1,15 @@
 import MessageContainer from "../components/messages/MessageContainer";
+import Setting from "../components/sidebar/Setting";
 import Sidebar from "../components/sidebar/Sidebar";
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
+	const location = useLocation();
+	console.log(location)
 	return (
-		<div className='flex h-[80vh] w-full md:max-w-screen-md md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
+		<div className='flex h-[80vh] w-full  rounded-lg overflow-hidden bg-clip-padding glass'>
 			<Sidebar />
-			<MessageContainer />
+			{location.search === '?update' ? <Setting /> : <MessageContainer />}
 		</div>
 	);
 };
