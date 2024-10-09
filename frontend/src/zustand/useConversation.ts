@@ -11,6 +11,7 @@ export type MessageType = {
   body: string;
   sednerId: string;
   createdAt:string
+  shouldShake?:boolean
 };
 
 type ConversationState = {
