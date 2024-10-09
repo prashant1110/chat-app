@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import { useAuth } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import Setting from "./components/sidebar/Setting";
 
 function App() {
   const { authUser, isLoading } = useAuth();
@@ -25,6 +26,10 @@ function App() {
           path="/login"
           element={!authUser ? <Login /> : <Navigate to={"/"} />}
         />
+         {/* <Route
+          path="/update"
+          element={authUser ? <Setting /> : <Navigate to={"/login"} />}
+        /> */}
       </Routes>
       <Toaster/>
     </div>
